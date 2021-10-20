@@ -86,6 +86,17 @@ function keyUpHandler(e) {
     }
 }
 
+// mouse paddle control
+document.addEventListener("mousemove", mouseMoveHandler, false);
+
+function mouseMoveHandler(e) {
+    var relativeX = e.clientX - canvas.offsetLeft;
+    if(relativeX > 0 && relativeX < canvas.width) {
+        paddleX = relativeX - paddleWidth/2;
+    }
+}
+
+
 // collision detection
 function collisionDetection() {
     for(let c=0; c<brickColumnCount; c++) {
