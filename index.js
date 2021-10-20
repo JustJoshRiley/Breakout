@@ -3,7 +3,7 @@ const ctx = canvas.getContext("2d");
 
 let x = canvas.width/2;
 let y = canvas.height-30;
-let dx = 0;
+let dx = 2;
 let dy = -2;
 
 let ballRadius = 10;
@@ -78,19 +78,29 @@ function draw() {
         }
     }
 
-    // bouncing off the top or bottom
-    if(y + dy > canvas.height-ballRadius || y + dy < ballRadius) {
-        dy = -dy;
-    }
+    
     // bouncing off the left and right
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
     }
-    
+    // bouncing off the top or bottom
+    if(y + dy < ballRadius) {
+        dy = -dy;
+    }
+    else if(y + dy > canvas.height-ballRadius) {
+        if(x > paddleX && x < paddleX + paddleWidth) {
+            dy = -dy;
+        }
+        else {
+            alert("GAME OVER");
+            document.location.reload();
+            clearInterval(interval); // Needed for Chrome to end game
+        }
+    }
 
 
 }
-setInterval(draw, 10);
+let interval = setInterval(draw, 10);
 
 
 
